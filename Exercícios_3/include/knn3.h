@@ -1,13 +1,13 @@
-//knn2.h
-#ifndef KNN2_H
-#define KNN2_H
+//knn.h
+#ifndef KNN3_H
+#define KNN3_H
 
 #include <iostream>
 #include<string>
 //#include <vector>
 using namespace std;
 
-class knn2{
+class knn{
 
     private:
         static int numXcalc;
@@ -26,7 +26,7 @@ class knn2{
     
     public:
 
-    knn2(){
+    knn(){
         tam_array_1=0;
         tam_array_2=0;
         numXcalc=0;
@@ -34,7 +34,7 @@ class knn2{
         numObj++;
         }
     
-    knn2(int size);
+    knn(int size);
     //int arraysize(float array[]);
     int compara();
     int contCalcDE();
@@ -60,12 +60,12 @@ class knn2{
 
 };
 
-int knn2::numXcalc = 0;
-int knn2::numObj = 0;
-int knn2::numObj_euclidiano = 0;
-int knn2::numObj_manhatam = 0;
-int knn2::numObj_chebychev = 0;
-int knn2::numObj_minkoviski;
+int knn::numXcalc = 0;
+int knn::numObj = 0;
+int knn::numObj_euclidiano = 0;
+int knn::numObj_manhatam = 0;
+int knn::numObj_chebychev = 0;
+int knn::numObj_minkoviski;
 
 
-#endif // KNN2_H
+#endif // KNN3_H
