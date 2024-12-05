@@ -7,7 +7,6 @@ realizados nele.
 
 #include <iostream>
 #include "../include/metodos3.cpp"
-#include "../include/knn3.h"
 using namespace std;
 
 
