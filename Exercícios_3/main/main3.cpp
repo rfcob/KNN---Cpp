@@ -97,7 +97,7 @@ int main(){
     knn KNN2(m, n);
     
     KNN2.preencher();
-    KNN2.ematriz();
+    KNN2.exibirmatriz();
 
 
 

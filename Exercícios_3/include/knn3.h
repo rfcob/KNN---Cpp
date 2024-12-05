@@ -26,24 +26,27 @@ class knn{
     int  get_linhasMatriz();
     int  get_colunasMatriz();
 
+    void exibirmatriz();
     void exibirmatriz(float* mat, int linhas, int colunas);
+    void ematrizP(float* matriz, int lin, int cols);
+
     void init(int tam1,int tam2);
     void instanciarMatriz();
-    void preencher(); 
     float instanciarmatriz(float* mat);
 
-    void ematriz();
-
+    void ordenar(int index);
+    void preencher(); 
+    
     float mediaDeclar(float* matriz, int index);
     float media(int index);
 
-    void ordenar(int index);
+    
     float mediana(int index);
     float maximo(int index);
     float minimo(int index);
-    float** tranposta();
-    void ematrizP(float* matriz, int lin, int cols);
 
+    float** tranposta();
+    
 
     knn(){
     }
