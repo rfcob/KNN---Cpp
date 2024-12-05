@@ -16,26 +16,19 @@ class knn{
         static int numObj_euclidiano;
         static int numObj_chebychev;
         static int numObj_minkoviski;
-        int size;
+        int linhas;
+        int colunas;
+        float** mat; //atributo matriz;
         //float*array1;
         //float*array2;
         float *distChebychev;
         float distEuclidana;
         int tam_array_1;
         int tam_array_2;
-    
-    public:
+        int tam_matriz;
 
-    knn(){
-        tam_array_1=0;
-        tam_array_2=0;
-        numXcalc=0;
-        distEuclidana=0;
-        numObj++;
-        }
+    public:
     
-    knn(int size);
-    //int arraysize(float array[]);
     int compara();
     int contCalcDE();
 
@@ -50,13 +43,41 @@ class knn{
     int get_numMinK( );
     int get_numCheB( );
 
-    void exibir(float* array, int size);
+    void set_linhasMatriz(int lin);
+    void set_colunasMatriz(int col);
+    int  get_linhasMatriz();
+    int  get_colunasMatriz();
+
+    void exibirmatriz(float* mat, int linhas, int colunas);
     void init(int tam1,int tam2);
+    void instanciarMatriz();
+    void preencher(); 
 
     double distancia(float* array_1, float* array_2, int p);
     double distancia(float* array_1, float* array_2);
     float distChby(float* array, int len_array);
+    float instanciarmatriz(float* mat);
 
+    void ematriz();
+
+
+    knn(){
+        tam_array_1=0;
+        tam_array_2=0;
+        numXcalc=0;
+        distEuclidana=0;
+        numObj++;
+        instanciarMatriz();
+    }
+
+    knn(int m, int n): linhas(m), colunas(n){
+        tam_array_1=0;
+        tam_array_2=0;
+        numXcalc=0;
+        distEuclidana=0;
+        numObj++;
+        instanciarMatriz();
+    }
 
 };
 
@@ -66,6 +87,7 @@ int knn::numObj_euclidiano = 0;
 int knn::numObj_manhatam = 0;
 int knn::numObj_chebychev = 0;
 int knn::numObj_minkoviski;
+
 
 
 #endif // KNN3_H

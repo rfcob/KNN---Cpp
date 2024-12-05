@@ -6,13 +6,75 @@
 
 //#include <vector>
 
-// função exibir/imprimir os arrays na tela
-void knn::exibir(float* array, int size){
-    for(int i=0;i<size;i++){
-        cout << array[i] << " ";
-    }
-    cout << endl;
+//metodo instanciar matriz dinâmicamente
+void knn::instanciarMatriz(){
+     mat = new float*[linhas];
+      for(int i = 0; i < linhas; i++){
+          mat[i] = new float[colunas];
+      }
 }
+
+//meto entrada de dados
+void knn::preencher() { 
+    
+    for(int i = 0; i < linhas; i++){
+      for(int j = 0; j < colunas; j++){
+         cout << "Entre com os valores: " << (i+1) << (j+1) << endl;
+         cin >> mat[i][j];
+      }
+    }
+}
+
+// Metodo exibir quando instanciada dinamicamente, com entrada pelo usuario
+void knn::ematriz(){
+
+    for(int i=0;i<linhas;i++){
+        for(int j = 0; j<colunas; j++){
+        cout << mat[i][j] << " ";
+        }
+    cout << endl;
+    }
+   
+}
+
+
+// função exibir/imprimir os arrays na tela
+void knn::exibirmatriz(float* matriz, int linhas, int colunas){
+
+    for(int i=0;i<linhas;i++){
+        for(int j = 0; j<colunas; j++){
+        cout << matriz[i * colunas + j] << " ";
+        }
+    cout << endl;
+    }
+   
+}
+
+
+void knn::set_linhasMatriz(int lin){
+    this-> linhas = lin;
+}
+    
+void knn::set_colunasMatriz(int col){
+   this -> colunas = col;
+}
+
+int knn::get_linhasMatriz(){
+    return linhas;
+}
+    
+int knn::get_colunasMatriz(){
+    return colunas;
+}
+
+
+
+
+
+
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
 
 //Método comparar o tamanho dos vetores
 int knn::compara(){
@@ -153,4 +215,3 @@ double knn::distancia(float* array_1, float* array_2){
 
     return maximo;  
 }
-
