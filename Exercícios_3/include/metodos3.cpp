@@ -8,14 +8,21 @@
 
 //metodo instanciar matriz dinâmicamente
 void knn::instanciarMatriz(){
+
      mat = new float*[linhas];
       for(int i = 0; i < linhas; i++){
           mat[i] = new float[colunas];
       }
+
+      numLin=linhas;
+      numCol=colunas;
 }
 
 //meto entrada de dados
 void knn::preencher() { 
+
+    numLin=linhas;
+    numCol=colunas;
     
     for(int i = 0; i < linhas; i++){
       for(int j = 0; j < colunas; j++){
@@ -39,17 +46,30 @@ void knn::ematriz(){
 
 
 // função exibir/imprimir os arrays na tela
-void knn::exibirmatriz(float* matriz, int linhas, int colunas){
+void knn::exibirmatriz(float* matriz, int lin, int cols){
 
-    for(int i=0;i<linhas;i++){
-        for(int j = 0; j<colunas; j++){
-        cout << matriz[i * colunas + j] << " ";
+    for(int i=0;i<lin;i++){
+        for(int j = 0; j<cols; j++){
+        cout << matriz[i * cols + j] << " ";
         }
     cout << endl;
     }
    
 }
 
+//metodo exibir matriz** enviando o ponteiro
+void knn::ematrizP(float* matriz, int lin, int cols){
+
+    for(int i=0;i<lin;i++){
+        for(int j = 0; j<cols; j++){
+        cout << mat[i][j] << " ";
+        }
+    cout << endl;
+    }
+   
+}
+
+//metods gets e sets
 
 void knn::set_linhasMatriz(int lin){
     this-> linhas = lin;
@@ -60,158 +80,122 @@ void knn::set_colunasMatriz(int col){
 }
 
 int knn::get_linhasMatriz(){
-    return linhas;
+    return numLin;
 }
     
 int knn::get_colunasMatriz(){
-    return colunas;
+    return numCol;
 }
 
 
 
+//metodo media para a matriz não dinamica
+float knn::mediaDeclar(float* matriz, int index){
+    float soma=0, media;
+    for (int i = 0; i < linhas; i++) {
+        soma += mat[i][index];
+    }
+    media=soma/linhas;
+    return media;
+
+}
+
+
+//metodo media por coluna
+float knn::media(int index){
+    float soma=0, media;
+    for (int i = 0; i < linhas; i++) {
+        soma += mat[i][index];
+    }
+    media=soma/linhas;
+    return media;
+
+}
+
+/*//metodo maximo geral
+float knn::maximo( ) { 
+    float maior = mat[0][0]; 
+    for (int i = 0; i < linhas; i++) { 
+        for (int j = 0; j < colunas; j++) { 
+            if (mat[i][j] > maior) {
+                 maior = mat[i][j]; 
+            } 
+        } 
+    } return maior;
+}*/
+
+
+//metodos maximo e minimo
+
+float knn::maximo( int index) { 
+    float maior = mat[0][index]; 
+    for (int i = 0; i < linhas; i++) {
+         if (mat[i][index] > maior) {
+             maior = mat[i][index]; 
+        } 
+    } return maior;
+}
+
+
+
+float knn::minimo( int index) { 
+    float minimo = mat[0][index]; 
+    for (int i = 0; i < linhas; i++) {
+         if (mat[i][index] < minimo) {
+             minimo = mat[i][index]; 
+        } 
+    } return minimo;
+}
+
+
+
+//metodo bubble - ordenar
+
+void knn::ordenar(int index) {
+    for (int i = 0; i < linhas - 1; i++) {
+        for (int j = i + 1; j < linhas; j++) {
+            if (mat[i][index] > mat[j][index]) {
+                int temp = mat[i][index];
+                mat[i][index] = mat[j][index];
+                mat[j][index] = temp;
+            }
+        }
+    }
+}
+
+
+//metodo para a mediana
+float knn::mediana(int index) {
+    ordenar(index); 
+
+    if (linhas % 2 == 0) {
+        return (mat[linhas / 2 - 1][index] + mat[linhas / 2][index]) / 2.0;
+    } else {
+        return mat[linhas / 2][index];
+    }
+}
+
+
+
+
+//método para a transposta
+float** knn::tranposta() {
+
+    transposta = new float*[numCol];
+    
+    for (int i = 0; i < numCol; ++i) {
+        transposta[i] = new float[numLin];
+    }
+
+ 
+    for (int i = 0; i < numLin; i++) {
+        for (int j = 0; j < numCol; j++) {
+            transposta[j][i] = mat[i][j];
+        }
+    }
+    return transposta;
+}
 
 
 
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-
-
-//Método comparar o tamanho dos vetores
-int knn::compara(){
-    if (tam_array_1==tam_array_2){
-        return 0;
-    }else{
-        return -1;
-    }
-}
-
-//Método inicizalizar o tamanho dos vetores
-void knn::init(int tam1,int tam2){
-    tam_array_1=tam1;
-    tam_array_2=tam2;
-}
-
-//Métodos pegar o tamanho dos arrays
-int knn::get_size_treino( ){
-    return tam_array_1;
-}
-    
-int knn::get_size_rotulo( ){
-    return tam_array_1;
-}
-
-int knn::get_iteracoes( ){
-    return numXcalc;
-}
-
-int knn::get_numObj( ){
-    return numObj;
-}
-
-int knn::get_numObj( string tipo){
-    if(tipo=="euclidiana"){
-        return numObj_euclidiano;
-    }else if(tipo=="manhatam"){
-        return numObj_manhatam;
-    }else if(tipo=="chebychev"){
-        return numObj_chebychev;
-    }else if(tipo=="minkoviski"){
-        return numObj_minkoviski;
-    }else{
-        return -1;
-    }
-}
-
-int knn::get_numManH( ){
-    return numObj_manhatam;
-}
-
-int knn:: get_numEuCL(){
-    return numObj_euclidiano;
-}
-
-int knn::get_numMinK( ){
-    return numObj_minkoviski;
-}
-
-int knn::get_numCheB( ){
-    return  numObj_chebychev;
-}
-
-
-
-//Método Encontrar maior - chebchev
-float knn::distChby(float* array, int len_array){
-    float maior=array[0];
-    //cout << maior;
-    for(int i=0;i<len_array;i++){
-        if (array[i] > maior){
-            maior=array[i];
-        }
-    }
-    return maior;
-}
-
-//função inicilizar os vetores privados dinâmicamente
-/*knn::knn(int size) : size(size), distancia(0) { 
-    array1 = new float[size]; 
-    array2 = new float[size]; 
-}*/
-
-
-//Metodo calcular distância euclidiana e Manhattan
-double knn::distancia(float* array_1, float* array_2,int p){
-
-    if(p==1){
-        numObj_manhatam++;
-    }else if(p==2){
-        numObj_euclidiano++;
-    }else{
-        numObj_minkoviski++;
-    }
-
-    int comparando = compara();
-
-
-    int retorno;
-    double d, sum_d = 0, powsum =0, distEuclidana=0;
-
-    if (comparando == -1){
-        cout << " Listas de tamanho diferente";
-    }else{
-        for(int i = 0; i<tam_array_1; i++){
-            d=abs(array_1[i]-array_2[i]);
-            sum_d+= pow(d,static_cast<double>(p));
-            numXcalc++;
-        } 
-        distEuclidana=pow(sum_d,1.0/static_cast<double>(p)); 
-    }
-
-    return distEuclidana;  
-}
-
-
-//Metodo sobrecarga: Chebychev 
-double knn::distancia(float* array_1, float* array_2){
-
-    numObj_chebychev++;
-
-    float* distChebychev = new float[tam_array_1];
-    int comparando = compara();
-    float maximo;
-    double d, sum_d = 0;
-
-    if (comparando == -1){
-        cout << " Listas de tamanho diferente";
-    }else{
-        for(int i = 0; i<tam_array_1; i++){
-            d=abs(array_1[i]-array_2[i]);
-            distChebychev[i]=d;
-            numXcalc++;
-        } 
-        maximo = distChby(distChebychev,tam_array_2);
-        //cout << "OK";
-    }
-
-    return maximo;  
-}
